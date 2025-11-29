@@ -1,7 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
-import User from '../../models/User.js';
+import User from '../models/User.js';
 
 const router = express.Router();
 
