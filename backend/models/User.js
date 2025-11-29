@@ -1,14 +1,12 @@
-// models/User.js
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import { type } from "os";
 
 const userSchema = new mongoose.Schema(
   {
     fullname: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase: true },
-    phone: { type: String, required: true},
+    phone: { type: String, required: true },
     address: { type: String, required: true },
     password: { type: String, required: true },
 
@@ -26,20 +24,21 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Hash password before saving
-userSchema.pre("save", async function () {
-  if (!this.isModified("password")) return;
+// --------------------- Hash password before saving ---------------------
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
-// Compare passwords
+// --------------------- Compare passwords ---------------------
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Generate reset password token (IMPORTANT!)
+// --------------------- Generate reset password token ---------------------
 userSchema.methods.generatePasswordResetToken = function () {
   const resetToken = crypto.randomBytes(20).toString("hex");
 
