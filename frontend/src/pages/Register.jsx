@@ -1,31 +1,37 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-
 import authImage from "../assets/PAWdoption.png";
 
 function Register() {
   const { registerUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // State
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState(""); // Ensures Address is captured
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    if(!agreeTerms) {
-        alert("Please agree to the Terms & Conditions");
-        return;
+    
+    if (!agreeTerms) {
+      alert("Please agree to the Terms & Conditions");
+      return;
     }
 
     try {
-      await registerUser(fullname, email, password);
-      navigate("/");
+      // PASS ALL 5 ARGUMENTS HERE
+      await registerUser(fullname, email, phone, address, password);
+      navigate("/"); // Redirect on success
     } catch (err) {
-      alert(err.response?.data?.message || "Registration failed");
+      // Handle error safely
+      const errorMessage = err.response?.data?.message || "Registration failed";
+      alert(errorMessage);
     }
   };
 
@@ -34,15 +40,16 @@ function Register() {
       <div className="card auth-card w-100" style={{ maxWidth: "900px" }}>
         <div className="row g-0">
           
+          {/* Illustration Side */}
           <div className="col-md-6 illustration-side d-none d-md-flex">
-             
-             <img 
+            <img 
               src={authImage} 
               alt="Register Illustration" 
               className="illustration-img"
             />
           </div>
 
+          {/* Form Side */}
           <div className="col-md-6 auth-form-container">
             <h2 className="form-title">Register</h2>
 
@@ -62,6 +69,24 @@ function Register() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+
+              <input
+                type="tel" 
+                className="form-control"
+                placeholder="Phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
+
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 required
               />
               

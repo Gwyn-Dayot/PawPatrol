@@ -17,19 +17,21 @@ const generateToken = (user) => {
 
 //Register
 router.post('/register', asyncHandler(async (req, res) => {
-    const { fullname, email, password, role } = req.body;
-    if (!fullname || !email || !password) return res.status(400).json({ message: 'Please provide all required fields' });
+    const { fullname, email, phone, address, password, role } = req.body;
+    if (!fullname || !email || !phone || !address || !password) return res.status(400).json({ message: 'Please provide all required fields' });
 
     const userExists = await User.findOne({ email });
     if (userExists) return res.status(400).json({ message: 'Email is already used' });
 
-    const user = new User({ fullname, email, password, role });
+    const user = new User({ fullname, email, phone, address, password, role });
     await user.save();
 
     res.status(201).json({
         id: user._id,
         fullname: user.fullname,
         email: user.email,
+        phone: user.phone,
+        address: user.address,
         role: user.role,
         token: generateToken(user),
     });
