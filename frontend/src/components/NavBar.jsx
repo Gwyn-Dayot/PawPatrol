@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logoutUser();
-    navigate("/home");
+    navigate("/");
   };
 
   return (

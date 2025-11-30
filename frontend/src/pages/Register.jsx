@@ -1,37 +1,36 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { validatePassword } from "../utils/validatePassword";
 import authImage from "../assets/PAWdoption.png";
 
 function Register() {
   const { registerUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // State
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState(""); // Ensures Address is captured
+  const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [agreeTerms, setAgreeTerms] = useState(false);
 
-  const handleRegister = async (e) => {
+  const submitRegister = async (e) => {
     e.preventDefault();
-    
-    if (!agreeTerms) {
-      alert("Please agree to the Terms & Conditions");
+
+    // Password strength validation
+    const message = validatePassword(password);
+    if (message) {
+      alert(message);
       return;
     }
 
     try {
-      // PASS ALL 5 ARGUMENTS HERE
       await registerUser(fullname, email, phone, address, password);
-      navigate("/"); // Redirect on success
+      alert("Registration successful!");
+      navigate("/");
     } catch (err) {
-      // Handle error safely
-      const errorMessage = err.response?.data?.message || "Registration failed";
-      alert(errorMessage);
+      alert(err.response?.data?.message || "Registration failed");
     }
   };
 
@@ -40,20 +39,11 @@ function Register() {
       <div className="card auth-card w-100" style={{ maxWidth: "900px" }}>
         <div className="row g-0">
           
-          {/* Illustration Side */}
-          <div className="col-md-6 illustration-side d-none d-md-flex">
-            <img 
-              src={authImage} 
-              alt="Register Illustration" 
-              className="illustration-img"
-            />
-          </div>
-
           {/* Form Side */}
           <div className="col-md-6 auth-form-container">
-            <h2 className="form-title">Register</h2>
+            <h2 className="form-title">Create Account</h2>
 
-            <form onSubmit={handleRegister}>
+            <form onSubmit={submitRegister}>
               <input
                 type="text"
                 className="form-control"
@@ -65,7 +55,7 @@ function Register() {
 
               <input
                 type="email"
-                className="form-control"
+                className="form-control mt-3"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -73,9 +63,9 @@ function Register() {
               />
 
               <input
-                type="tel" 
-                className="form-control"
-                placeholder="Phone"
+                type="text"
+                className="form-control mt-3"
+                placeholder="Phone Number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
@@ -83,14 +73,15 @@ function Register() {
 
               <input
                 type="text"
-                className="form-control"
+                className="form-control mt-3"
                 placeholder="Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 required
               />
-              
-              <div className="password-wrapper mb-3">
+
+              {/* Password */}
+              <div className="password-wrapper mt-3 mb-1">
                 <input
                   type={showPassword ? "text" : "password"}
                   className="form-control mb-0"
@@ -104,34 +95,36 @@ function Register() {
                   className="password-toggle"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                   <i className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}></i>
+                  <i className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}></i>
                 </button>
               </div>
 
-              <div className="form-check mb-4">
-                <input 
-                    className="form-check-input" 
-                    type="checkbox" 
-                    id="termsCheck"
-                    checked={agreeTerms}
-                    onChange={(e) => setAgreeTerms(e.target.checked)}
-                />
-                <label className="form-check-label small" htmlFor="termsCheck">
-                    I agree to all <a href="#" className="auth-link">Terms & Conditions</a>
-                </label>
-              </div>
+              <p className="text-muted small">
+                Password must contain:  
+                <br />• 6+ characters  
+                <br />• 1 uppercase letter  
+                <br />• 1 number  
+              </p>
 
-              <button type="submit" className="btn btn-custom w-100 mb-3">
-                Create Account
+              <button type="submit" className="btn btn-custom w-100 mt-2">
+                Register
               </button>
             </form>
 
-            <div className="text-center">
+            <div className="text-center mt-3">
               <span className="text-muted small">Already have an account? </span>
-              <Link to="/login" className="auth-link">Sign in</Link>
+              <Link to="/login" className="auth-link">Login</Link>
             </div>
           </div>
 
+          {/* Illustration Side */}
+          <div className="col-md-6 illustration-side d-none d-md-flex">
+            <img 
+              src={authImage} 
+              alt="Register Illustration" 
+              className="illustration-img" 
+            />
+          </div>
         </div>
       </div>
     </div>

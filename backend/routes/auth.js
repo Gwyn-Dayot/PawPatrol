@@ -80,7 +80,7 @@ router.post(
       return res.status(200).json({ message: "If an account exists, a reset email has been sent." });
     }
 
-    const resetToken = user.generatePasswordResetToken();
+    const resetToken = user.getResetPasswordToken();
     await user.save({ validateBeforeSave: false });
 
     const resetURL = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
@@ -102,7 +102,7 @@ router.post(
       res.json({ message: "Reset link sent to email" });
     } catch (error) {
       user.resetPasswordToken = undefined;
-      user.resetPasswordExpires = undefined;
+      user.resetPasswordExpire = undefined;
       await user.save({ validateBeforeSave: false });
       console.error(error);
       res.status(500).json({ message: "Email could not be sent" });
@@ -121,14 +121,14 @@ router.post(
 
     const user = await User.findOne({
       resetPasswordToken: hashedToken,
-      resetPasswordExpires: { $gt: Date.now() },
+      resetPasswordExpire: { $gt: Date.now() },
     });
 
     if (!user) return res.status(400).json({ message: "Token invalid or expired" });
 
     user.password = password;
     user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    user.resetPasswordExpire = undefined;
     await user.save();
 
     res.json({ message: "Password updated successfully!" });
