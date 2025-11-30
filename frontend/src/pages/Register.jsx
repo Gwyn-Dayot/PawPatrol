@@ -15,22 +15,37 @@ function Register() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  // 1. Add state for Error and Success messages
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
   const submitRegister = async (e) => {
     e.preventDefault();
+    
+    // Clear previous messages
+    setError(null);
+    setSuccess(null);
 
     // Password strength validation
     const message = validatePassword(password);
     if (message) {
-      alert(message);
+      // 2. Replace alert with setError
+      setError(message);
       return;
     }
 
     try {
       await registerUser(fullname, email, phone, address, password);
-      alert("Registration successful!");
-      navigate("/");
+      
+      // 3. Show success message and redirect after a short delay
+      setSuccess("Registration successful! Redirecting to login...");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000); // Wait 2 seconds so they can read the message
+
     } catch (err) {
-      alert(err.response?.data?.message || "Registration failed");
+      // 4. Handle API errors
+      setError(err.response?.data?.message || "Registration failed");
     }
   };
 
@@ -42,6 +57,20 @@ function Register() {
           {/* Form Side */}
           <div className="col-md-6 auth-form-container">
             <h2 className="form-title">Create Account</h2>
+
+            {/* 5. Display Error Message */}
+            {error && (
+              <div className="alert alert-danger text-center p-2 mb-3" role="alert">
+                {error}
+              </div>
+            )}
+
+            {/* 6. Display Success Message */}
+            {success && (
+              <div className="alert alert-success text-center p-2 mb-3" role="alert">
+                {success}
+              </div>
+            )}
 
             <form onSubmit={submitRegister}>
               <input

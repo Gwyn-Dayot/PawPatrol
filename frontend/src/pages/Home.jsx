@@ -1,8 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import React from 'react';
+import heroImage from '../assets/hero-pets.png';
 
-// 1. MOCK DATA WITH ACTUAL DETAILS (So filtering works)
+
 const MOCK_PETS = [
   { id: 1, name: "Buddy", species: "dog", breed: "Golden Retriever", isUrgent: false },
   { id: 2, name: "Whiskers", species: "cat", breed: "Siamese", isUrgent: true },
@@ -59,7 +61,9 @@ const Home = () => {
       {/* ---------------- HERO SECTION ---------------- */}
       <div className="container py-5">
         <div className="row align-items-center">
-          <div className="col-md-6 mb-4 mb-md-0">
+        
+
+          <div className="col-md-6">
             <h1 className="display-4 fw-bold text-dark mb-3">PAWDOPTION</h1> 
             <p className="lead text-muted mb-4">
               Find your new best friend today. We connect loving families with pets in need.
@@ -68,13 +72,15 @@ const Home = () => {
               Adopt Now
             </button>
           </div>
-          <div className="col-md-6 text-center">
-             <div className="bg-white p-2 rounded-4 shadow-sm" style={{ transform: "rotate(2deg)" }}>
-                <div className="bg-secondary bg-opacity-25 rounded-4 d-flex align-items-center justify-content-center" style={{ height: "350px", width: "100%" }}>
-                  <i className="bi bi-image text-white display-1"></i>
-                </div>
-             </div>
+
+          <div className="col-md-6 text-center mb-4 mb-md-0">
+             <img 
+              src={heroImage} 
+              alt="Happy pet ready for adoption" 
+              className="rounded-4 img-fluid" 
+            />
           </div>
+
         </div>
       </div>
 
