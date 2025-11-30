@@ -7,6 +7,7 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 import { protect } from './middleware/auth.js';
 import { authorizeRoles } from './middleware/roles.js';
+import applicationsRoutes from './routes/app'
 
 
 dotenv.config();
@@ -33,6 +34,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/api/auth', authRoutes);
+app.use('/api/applications', applicationRoutes);
 
 
 app.get('/api/admin/only', protect, authorizeRoles('admin'), (req, res) => {

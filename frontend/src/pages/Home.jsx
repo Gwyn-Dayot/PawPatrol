@@ -1,9 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Link is already imported, which is great!
 import React from 'react';
 import heroImage from '../assets/hero-pets.png';
-
 
 const MOCK_PETS = [
   { id: 1, name: "Buddy", species: "dog", breed: "Golden Retriever", isUrgent: false },
@@ -62,15 +61,15 @@ const Home = () => {
       <div className="container py-5">
         <div className="row align-items-center">
         
-
           <div className="col-md-6">
             <h1 className="display-4 fw-bold text-dark mb-3">PAWDOPTION</h1> 
             <p className="lead text-muted mb-4">
               Find your new best friend today. We connect loving families with pets in need.
             </p>
-            <button className="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
+            {/* UPDATED: Changed <button> to <Link> to trigger the application */}
+            <Link to="/apply" className="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
               Adopt Now
-            </button>
+            </Link>
           </div>
 
           <div className="col-md-6 text-center mb-4 mb-md-0">
@@ -175,9 +174,10 @@ const Home = () => {
                             </div>
 
                             <div className="d-flex justify-content-end mt-auto">
-                                <button className="btn btn-white border shadow-sm btn-sm px-4 fw-bold text-primary">
+                                {/* UPDATED: Changed <button> to <Link> to trigger the application */}
+                                <Link to="/apply" className="btn btn-white border shadow-sm btn-sm px-4 fw-bold text-primary">
                                     Adopt
-                                </button>
+                                </Link>
                             </div>
 
                         </div>
