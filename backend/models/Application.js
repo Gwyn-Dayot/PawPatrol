@@ -1,13 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const applicationSchema = new mongoose.Schema(
   {
-    userId: { 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: 'User', 
-      required: true 
-    },
-    // We store the granular address details here, separate from the User's single string address
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+
+    // Address & Contact
     addressLine1: { type: String, required: true },
     addressLine2: String,
     town: { type: String, required: true },
@@ -16,27 +13,35 @@ const applicationSchema = new mongoose.Schema(
     mobile: String,
 
     // Home Details
-    hasGarden: { type: String, enum: ['yes', 'no'] },
+    hasGarden: { type: String, enum: ['yes','no'] },
     livingSituation: String,
     householdSetting: String,
     activityLevel: String,
 
-    // Household Members
+    // Household
     adults: { type: Number, default: 1 },
     children: { type: Number, default: 0 },
     youngestChildAge: String,
-    visitingChildren: { type: String, enum: ['yes', 'no'] },
-    flatmates: { type: String, enum: ['yes', 'no'] },
+    visitingChildren: { type: String, enum: ['yes','no'] },
+    flatmates: { type: String, enum: ['yes','no'] },
     visitingChildAges: String,
 
     // Animals
     allergies: String,
-    hasOtherAnimals: { type: String, enum: ['yes', 'no'] },
+    hasOtherAnimals: { type: String, enum: ['yes','no'] },
     otherAnimalsDetails: String,
     isNeutered: String,
     isVaccinated: String,
     experience: String,
-    
+
+    // Images
+    images: {
+      main: String,
+      img2: String,
+      img3: String,
+      img4: String
+    },
+
     // Status
     status: {
       type: String,
