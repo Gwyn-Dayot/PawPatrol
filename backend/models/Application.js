@@ -10,7 +10,6 @@ const applicationSchema = new mongoose.Schema(
     town: { type: String, required: true },
     postcode: { type: String, required: true },
     phone: String,
-    mobile: String,
 
     // Home Details
     hasGarden: { type: String, enum: ['yes','no'] },
