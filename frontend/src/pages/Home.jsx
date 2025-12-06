@@ -25,15 +25,11 @@ const Home = () => {
   const [searchBreed, setSearchBreed] = useState("");
   const [filteredPets, setFilteredPets] = useState(MOCK_PETS);
   
-  // State for Favorites
   const [favorites, setFavorites] = useState([]);
 
-  // NEW: State for the Login Modal
   const [showModal, setShowModal] = useState(false);
 
-  // ---------------------------------------------------------
-  // 1. FILTERING LOGIC (useEffect)
-  // ---------------------------------------------------------
+
   useEffect(() => {
     let result = MOCK_PETS;
 
@@ -52,9 +48,6 @@ const Home = () => {
     setFilteredPets(result);
   }, [activeTab, searchSpecies, searchBreed]);
 
-  // ---------------------------------------------------------
-  // 2. HANDLERS
-  // ---------------------------------------------------------
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
@@ -65,7 +58,6 @@ const Home = () => {
 
   const handleAdoptClick = () => {
     if (!user) {
-      // Instead of alert, we show the modal
       setShowModal(true);
       return;
     }
@@ -74,7 +66,6 @@ const Home = () => {
 
   const handleFavoriteClick = (id) => {
     if (!user) {
-      // Instead of alert, we show the modal
       setShowModal(true);
       return;
     }
@@ -84,13 +75,13 @@ const Home = () => {
     );
   };
 
-  // Helper to close modal and go to login
+
   const handleLoginRedirect = () => {
     setShowModal(false);
     navigate("/login");
   };
 
-  // ---------------------------------------------------------
+
 
   return (
     <div style={{ backgroundColor: "#EFF6FF", minHeight: "100vh", position: "relative" }}>
@@ -122,7 +113,7 @@ const Home = () => {
             <div className="d-flex align-items-center px-4 py-2 border-end border-light-subtle flex-shrink-0">
                 <i className="bi bi-funnel-fill text-primary me-2 fs-5"></i>
                 <select 
-                    className="form-select border-0 shadow-none fw-semibold text-dark p-0" 
+                    className="border-0 shadow-none fw-semibold text-dark p-0" 
                     style={{ width: "auto", cursor: "pointer", outline: "none" }} 
                     value={searchSpecies}
                     onChange={(e) => setSearchSpecies(e.target.value)}
@@ -138,14 +129,14 @@ const Home = () => {
                     <input 
                         type="text" 
                         className="border-0 shadow-none p-0 fs-6" 
-                        placeholder="Search by breed (e.g. Golden Retriever)" 
+                        placeholder="Search by breed... " 
                         value={searchBreed}
                         onChange={(e) => setSearchBreed(e.target.value)}
                         style={{ height: "100%", outline: "none" }}
                     />
                 </div>
             </div>
-            <div className="p-1 w-100 w-md-auto">
+            <div className="p-1 w-50 w-md-auto">
                 <button className="btn btn-primary rounded-pill px-5 py-2 fw-bold w-100 shadow-sm">Search</button>
             </div>
         </div>
@@ -216,9 +207,7 @@ const Home = () => {
 
       </div>
 
-      {/* ========================================================= */}
-      {/* LOGIN REQUIRED MODAL                                      */}
-      {/* ========================================================= */}
+  
       {showModal && (
         <div className="modal fade show d-block" tabIndex="-1" role="dialog" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
             <div className="modal-dialog modal-dialog-centered" role="document">
