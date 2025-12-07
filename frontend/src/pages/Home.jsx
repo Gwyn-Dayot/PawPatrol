@@ -19,7 +19,6 @@ const Home = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // State for Filters
   const [activeTab, setActiveTab] = useState("All");
   const [searchSpecies, setSearchSpecies] = useState("");
   const [searchBreed, setSearchBreed] = useState("");
@@ -86,7 +85,6 @@ const Home = () => {
   return (
     <div style={{ backgroundColor: "#EFF6FF", minHeight: "100vh", position: "relative" }}>
       
-      {/* HERO SECTION */}
       <div className="container py-5">
         <div className="row align-items-center">
           <div className="col-md-6">
@@ -107,7 +105,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* FILTER BAR */}
       <div className="container mb-5">
         <div className="bg-white rounded-pill shadow-lg d-flex flex-column flex-md-row align-items-center p-2 mx-auto" style={{ maxWidth: "850px" }}>
             <div className="d-flex align-items-center px-4 py-2 border-end border-light-subtle flex-shrink-0">
@@ -142,7 +139,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* CONTENT SECTION */}
       <div className="container text-center mb-5">
         <h2 className="text-primary mb-2">Our Pets</h2>
         <p className="text-muted mb-5">Browse our furry friends waiting for a home.</p>
@@ -164,7 +160,6 @@ const Home = () => {
             ))}
         </div>
 
-        {/* PET GRID */}
         {filteredPets.length > 0 ? (
             <div className="row g-4">
                 {filteredPets.map((pet) => (

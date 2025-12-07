@@ -11,7 +11,6 @@ const AboutUs = () => {
   return (
     <div style={{ backgroundColor: '#f0f8ff', minHeight: '100vh' }} className="font-sans">
       
-      {/* --- HERO SECTION --- */}
       <div className="py-5">
         <div className="container text-center">
           <h1 className="display-4 fw-bold mb-3 text-dark">
@@ -28,7 +27,6 @@ const AboutUs = () => {
         </div>
       </div>
 
-      {/* --- MAIN MISSION SECTION --- */}
       <div className="container py-4">
         <div className="row align-items-center g-5">
           
@@ -62,7 +60,6 @@ const AboutUs = () => {
         </div>
       </div>
 
-      {/* --- PILLARS OF CARE (Grid) --- */}
       <div className="py-5 mb-5">
         <div className="container">
           <div className="text-center mb-5">
@@ -71,7 +68,7 @@ const AboutUs = () => {
           </div>
 
           <div className="row g-4">
-            {/* Card 1 */}
+
             <div className="col-md-6 col-lg-3">
               <div className="card h-100 border-0 shadow-sm rounded-4 text-center p-4 bg-white">
                 <div className="mb-3 text-primary">
@@ -84,7 +81,6 @@ const AboutUs = () => {
               </div>
             </div>
 
-            {/* Card 2 */}
             <div className="col-md-6 col-lg-3">
               <div className="card h-100 border-0 shadow-sm rounded-4 text-center p-4 bg-white">
                 <div className="mb-3 text-primary">
@@ -97,7 +93,6 @@ const AboutUs = () => {
               </div>
             </div>
 
-            {/* Card 3 */}
             <div className="col-md-6 col-lg-3">
               <div className="card h-100 border-0 shadow-sm rounded-4 text-center p-4 bg-white">
                 <div className="mb-3 text-primary">
@@ -110,7 +105,6 @@ const AboutUs = () => {
               </div>
             </div>
 
-            {/* Card 4 */}
             <div className="col-md-6 col-lg-3">
               <div className="card h-100 border-0 shadow-sm rounded-4 text-center p-4 bg-white">
                 <div className="mb-3 text-primary">

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   
-  // 1. Add state for messages
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
@@ -17,10 +16,8 @@ function ForgotPassword() {
 
     try {
       await axios.post(`${API_URL}/auth/forgot-password`, { email });
-      // 2. Set success message instead of alert
       setSuccess("If the account exists, a reset link was sent to your email!");
     } catch (err) {
-      // 3. Set error message
       setError("Error sending reset email. Please try again.");
     }
   };
@@ -31,7 +28,6 @@ function ForgotPassword() {
         <h2 className="form-title">Forgot Password</h2>
         <p className="text-muted text-center mb-4">Enter your email and we'll send you a link to reset your password.</p>
         
-        {/* 4. Display messages here */}
         {error && (
           <div className="alert alert-danger text-center p-2" role="alert">
             {error}

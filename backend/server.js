@@ -20,7 +20,6 @@ app.use(morgan('dev'));
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
 
-// Serve uploaded images
 app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
 
 app.get('/', (req, res) => res.send('PAWdoption Backend is running'));
@@ -28,7 +27,6 @@ app.get('/', (req, res) => res.send('PAWdoption Backend is running'));
 app.use('/api/auth', authRoutes);
 app.use('/api/applications', applicationsRoutes);
 
-// Example admin-only route
 app.get('/api/admin/only', protect, authorizeRoles('admin'), (req, res) => {
   res.send({ message: 'Welcome PAWdoption Admin!' });
 });

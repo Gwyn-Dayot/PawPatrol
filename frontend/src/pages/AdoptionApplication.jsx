@@ -3,10 +3,8 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react';
 
-// --- CONFIGURATION ---
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-// --- Reusable Input Components ---
 const InputField = ({ label, type = "text", name, value, onChange, placeholder, required = false }) => (
   <div className="mb-3">
     <label className="form-label fw-medium">{label} {required && <span className="text-danger">*</span>}</label>
@@ -40,7 +38,6 @@ const RadioGroup = ({ label, name, value, onChange, options }) => (
 
 const SectionTitle = ({ children }) => <h2 className="h3 mb-4 text-dark fw-bold">{children}</h2>;
 
-// --- Steps ---
 const Step1Start = memo(({ user, agreedToTerms, onChange, onNext }) => (
   <div className="text-center mx-auto" style={{ maxWidth: '600px' }}>
     <h2 className="mb-4">Welcome, {user?.fullname || 'Guest'}!</h2>
@@ -114,7 +111,7 @@ const Step5Success = memo(() => (
   </div>
 ));
 
-// --- Main Component ---
+
 export default function AdoptionApplication() {
   const { user } = useContext(AuthContext);
   const [currentStep, setCurrentStep] = useState(1);

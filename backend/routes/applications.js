@@ -8,23 +8,17 @@ import { authorizeRoles } from '../middleware/roles.js';
 
 const router = express.Router();
 
-// --- Configuration ---
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/'),
   filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
 });
 
-// Limit file size to 5MB and check file types if needed
 const upload = multer({ 
   storage,
   limits: { fileSize: 5 * 1024 * 1024 } 
 });
 
-// --- Routes ---
 
-// @desc    Submit a new application
-// @route   POST /api/applications
-// @access  Private
 router.post('/', protect, upload.fields([
     { name: 'main', maxCount: 1 },
     { name: 'img2', maxCount: 1 },
@@ -32,7 +26,6 @@ router.post('/', protect, upload.fields([
     { name: 'img4', maxCount: 1 }
   ]),
   asyncHandler(async (req, res) => {
-    // 1. Check if user already has a pending application
     const existingApp = await Application.findOne({ 
       userId: req.user._id, 
       status: 'pending' 
@@ -43,7 +36,6 @@ router.post('/', protect, upload.fields([
       throw new Error('You already have a pending application.');
     }
 
-    // 2. Process uploaded images
     const images = {};
     if (req.files) {
       ['main', 'img2', 'img3', 'img4'].forEach(key => {
@@ -53,11 +45,8 @@ router.post('/', protect, upload.fields([
       });
     }
 
-    // 3. Create Application
-    // Note: ...req.body will now only contain the address and home details 
-    // sent from the shortened frontend.
     const application = new Application({
-      userId: req.user._id, // Securely get ID from the auth token
+      userId: req.user._id,
       ...req.body,
       images
     });
@@ -67,9 +56,6 @@ router.post('/', protect, upload.fields([
   })
 );
 
-// @desc    Get logged-in user's applications
-// @route   GET /api/applications/my
-// @access  Private
 router.get('/my', protect, asyncHandler(async (req, res) => {
     const applications = await Application.find({ userId: req.user._id })
       .sort({ createdAt: -1 });
@@ -77,9 +63,7 @@ router.get('/my', protect, asyncHandler(async (req, res) => {
   })
 );
 
-// @desc    Get all applications (Admin)
-// @route   GET /api/applications
-// @access  Admin
+
 router.get('/', protect, authorizeRoles('admin'), asyncHandler(async (req, res) => {
     const applications = await Application.find({})
       .populate('userId', 'fullname email')
@@ -88,9 +72,7 @@ router.get('/', protect, authorizeRoles('admin'), asyncHandler(async (req, res) 
   })
 );
 
-// @desc    Update application status (Admin)
-// @route   PUT /api/applications/:id/status
-// @access  Admin
+
 router.put('/:id/status', protect, authorizeRoles('admin'), asyncHandler(async (req, res) => {
     const { status } = req.body;
     

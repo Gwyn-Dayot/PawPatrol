@@ -2,12 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { API_URL } from "../config";
-// import { Link } from "react-router-dom"; // Unused in original, kept if needed
 
 function UserDashboard() {
   const { user } = useContext(AuthContext);
   
-  // 1. Add state for the Active Tab and Appointments
   const [activeTab, setActiveTab] = useState("applications"); 
   const [appointments, setAppointments] = useState([]);
 
@@ -25,14 +23,9 @@ function UserDashboard() {
 
     const fetchDashboard = async () => {
       try {
-        // Fetch Applications
         const resApps = await axios.get(`${API_URL}/applications/user/${user._id}`);
         const apps = resApps.data;
         setApplications(apps);
-
-        // 2. Fetch Appointments (Assumed Endpoint)
-        // If this endpoint doesn't exist yet, this block might error out. 
-        // Ensure your backend has this route.
         try {
             const resAppts = await axios.get(`${API_URL}/appointments/user/${user._id}`);
             setAppointments(resAppts.data);
@@ -58,12 +51,10 @@ function UserDashboard() {
   return (
     <div className="container mt-5">
 
-      {/* ---------------- WELCOME CARD ---------------- */}
       <div className="bg-white shadow-sm p-4 rounded-4 mb-4">
         <h3>Welcome back, {user?.fullname}!</h3>
       </div>
 
-      {/* ---------------- USER STATS ---------------- */}
       <div className="row text-center mb-5">
         <div className="col-md-3 mb-3">
           <div className="bg-white p-4 rounded-4 shadow-sm">
@@ -94,7 +85,6 @@ function UserDashboard() {
         </div>
       </div>
 
-      {/* ---------------- TABS ---------------- */}
       <ul className="nav nav-tabs mb-4">
         <li className="nav-item">
           <button 
@@ -104,7 +94,7 @@ function UserDashboard() {
             My Applications
           </button>
         </li>
-        {/* 3. New Appointment Tab Button */}
+
         <li className="nav-item">
           <button 
             className={`nav-link ${activeTab === "appointments" ? "active" : ""}`}
@@ -123,10 +113,8 @@ function UserDashboard() {
         </li>
       </ul>
 
-      {/* ---------------- CONTENT AREA ---------------- */}
       <div className="mt-3">
         
-        {/* VIEW: APPLICATIONS */}
         {activeTab === "applications" && (
             <>
                 {applications.length === 0 ? (
@@ -162,7 +150,6 @@ function UserDashboard() {
             </>
         )}
 
-        {/* VIEW: APPOINTMENTS (New) */}
         {activeTab === "appointments" && (
             <>
                 {appointments.length === 0 ? (
@@ -175,7 +162,6 @@ function UserDashboard() {
                             <div className="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h5>📅 Appointment Details</h5>
-                                    {/* Adjust fields based on your actual database schema */}
                                     <p className="mb-1"><strong>Date:</strong> {new Date(appt.date).toLocaleDateString()}</p>
                                     <p className="mb-1"><strong>Time:</strong> {appt.time}</p>
                                     <p className="text-muted small">Reason: {appt.reason || "General Visit"}</p>
@@ -194,7 +180,6 @@ function UserDashboard() {
             </>
         )}
 
-        {/* VIEW: LIKED PETS (Placeholder) */}
         {activeTab === "liked" && (
             <div className="text-center py-5 text-muted">
                 <p>Liked pets list will go here.</p>

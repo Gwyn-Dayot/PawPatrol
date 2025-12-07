@@ -11,7 +11,6 @@ function ResetPassword() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   
-  // 1. Add state for messages
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
@@ -20,10 +19,8 @@ function ResetPassword() {
     setError(null);
     setSuccess(null);
 
-    // Validate new password
     const message = validatePassword(password);
     if (message) {
-      // 2. Show validation error in the UI, not alert
       setError(message);
       return;
     }
@@ -31,7 +28,6 @@ function ResetPassword() {
     try {
       await axios.post(`${API_URL}/auth/reset-password/${token}`, { password });
       
-      // 3. Show success and wait 2 seconds before redirecting
       setSuccess("Password updated! Redirecting to login...");
       setTimeout(() => {
         navigate("/login");
@@ -47,7 +43,6 @@ function ResetPassword() {
       <div className="card auth-card p-5 shadow-lg" style={{ maxWidth: "500px", width: "100%" }}>
         <h2 className="form-title">Reset Password</h2>
 
-        {/* 4. Display messages here */}
         {error && (
           <div className="alert alert-danger text-center p-2" role="alert">
             {error}

@@ -7,7 +7,6 @@ import { sendEmail } from "../utils/sendEmail.js";
 
 const router = express.Router();
 
-// --------------------- Helper ---------------------
 const generateToken = (user) => {
   return jwt.sign(
     { id: user._id, role: user.role, email: user.email },
@@ -16,7 +15,6 @@ const generateToken = (user) => {
   );
 };
 
-// --------------------- Register ---------------------
 router.post(
   "/register",
   asyncHandler(async (req, res) => {
@@ -44,7 +42,6 @@ router.post(
   })
 );
 
-// --------------------- Login ---------------------
 router.post(
   "/login",
   asyncHandler(async (req, res) => {
@@ -67,7 +64,6 @@ router.post(
   })
 );
 
-// --------------------- Forgot Password ---------------------
 router.post(
   "/forgot-password",
   asyncHandler(async (req, res) => {
@@ -76,7 +72,6 @@ router.post(
 
     const user = await User.findOne({ email });
     if (!user) {
-      // Avoid email enumeration
       return res.status(200).json({ message: "If an account exists, a reset email has been sent." });
     }
 
@@ -110,7 +105,6 @@ router.post(
   })
 );
 
-// --------------------- Reset Password ---------------------
 router.post(
   "/reset-password/:token",
   asyncHandler(async (req, res) => {

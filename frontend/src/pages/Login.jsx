@@ -12,18 +12,16 @@ function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); 
   
-  // 1. New state to handle error messages
   const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(null); // Clear any previous errors when trying again
+    setError(null);
 
     try {
       await login(email, password);
       navigate("/");
     } catch (err) {
-      // 2. Instead of alert(), we set the state
       setError(err.response?.data?.message || "Invalid email or password");
     }
   };
@@ -36,7 +34,6 @@ function Login() {
           <div className="col-md-6 auth-form-container">
             <h2 className="form-title">Login</h2>
 
-            {/* 3. Display the error here if it exists */}
             {error && (
               <div className="alert alert-danger text-center p-2 mb-3" role="alert">
                 {error}

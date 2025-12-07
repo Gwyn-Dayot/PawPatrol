@@ -8,5 +8,5 @@ export function validatePassword(password) {
   if (!/[0-9]/.test(password)) {
     return "Password must contain at least one number.";
   }
-  return null; // valid
+  return null;
 }
