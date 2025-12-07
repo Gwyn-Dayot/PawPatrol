@@ -99,3 +99,27 @@ body {
 .auth-link:hover {
   text-decoration: underline;
 }
+/* Light gray background for the whole page */
+body {
+  background-color: #f8f9fa; 
+}
+
+/* Customizing the Tabs to look like the image */
+.nav-variant-underline .nav-link {
+    color: #6c757d; /* Muted color for inactive */
+    border-bottom: 3px solid transparent;
+}
+
+.nav-variant-underline .nav-link.active {
+    color: #0d6efd; /* Bootstrap primary blue */
+    font-weight: 600;
+}
+
+.nav-variant-underline .nav-link:hover {
+    color: #0d6efd; 
+}
+
+/* Slight rounding adjustments */
+.card {
+    border-radius: 8px;
+}

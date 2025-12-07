@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AdoptionApplication from "./pages/AdoptionApplication";
+import AdopterDashboard from "./pages/Dashboard";
 
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
             <Route index element={<Home />} />
 
           <Route path="/about" element={<AboutUs />} />
-
+          <Route path="/dashboard" element={<AdopterDashboard />} />
+          
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="forgot-password" element={<ForgotPassword />} />

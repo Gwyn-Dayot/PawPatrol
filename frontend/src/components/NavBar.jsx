@@ -17,22 +17,24 @@ const Navbar = () => {
         <Link className="navbar-brand fw-bold text-primary" to="/">
           <i className="bi bi-paw-fill me-2"></i>PAWdoption
         </Link>
-        
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarNav" 
-          aria-controls="navbarNav" 
-          aria-expanded="false" 
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNav">
-          
+
+          {/* LEFT LINKS */}
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+
             <li className="nav-item">
               <Link className="nav-link" to="/">Home</Link>
             </li>
@@ -40,23 +42,35 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/about">About Us</Link>
             </li>
+
           </ul>
 
+          {/* RIGHT SIDE */}
           <div className="d-flex align-items-center">
-            
+
             {user ? (
               <div className="d-flex align-items-center gap-3">
+
+                {/* USER NAME → LINKS TO DASHBOARD */}
+
                 <div className="text-end d-none d-md-block">
                   <span className="d-block small text-muted">Signed in as</span>
-                  <span className="fw-semibold text-dark">{user.fullname}</span>
+                  <Link 
+                    to="/dashboard" 
+                    className="fw-semibold text-primary text-decoration-none"
+                  >
+                    {user.fullname}
+                  </Link>
                 </div>
 
-                <button 
-                    onClick={handleLogout} 
-                    className="btn btn-outline-danger btn-sm"
+                {/* LOGOUT */}
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-outline-danger btn-sm"
                 >
-                    Logout
+                  Logout
                 </button>
+
               </div>
             ) : (
 
@@ -68,9 +82,11 @@ const Navbar = () => {
                   Register
                 </Link>
               </div>
+
             )}
 
           </div>
+
         </div>
       </div>
     </nav>
